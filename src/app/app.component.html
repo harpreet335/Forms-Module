@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form  [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userGrp">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="userName"
+              class="form-control">
+              <span class="help-block">
+                <!-- <p *ngIf="userForm.get('userGrp.userName').errors['NameIsBlacklisted'] && userForm.get('userGrp.userName').touched" >Please Enter the valid Username !</p> -->
+              </span>
+              <span class="help-block">
+                <!-- <p *ngIf="userForm.get('userGrp.userName').errors['required'] && userForm.get('userGrp.userName').touched">Username cannot be blank !</p> -->
+              </span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="eMail"
+              class="form-control">
+              <span class="help-block">
+                <p *ngIf="!userForm.get('userGrp.eMail').valid && userForm.get('userGrp.eMail').touched" >Please Enter the valid E-Mail !</p>
+              </span>
+          </div>
+        </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input
+              type="radio"
+              [value]="gender"
+              formControlName="gender">
+              {{ gender }}
+          </label>
+        </div>
+        <div formArrayName="hobbiesControl">
+          <h3>Your hobbies</h3>
+          <button class="btn btn-default" type="button" (click)="onAddHobbies()">Add Hobbies</button>
+          <div class="form-group" *ngFor="let control of userForm.get('hobbiesControl').controls; let i = index">
+             <input type="text" class="form-control" [formControlName]="i"/>
+          </div>
+        </div>
+        <hr>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+      <span class="help-block">
+        <p *ngIf="!userForm.valid && userForm.touched">Form is invalid !</p>
+      </span>
+    </div>
+  </div>
+</div>
